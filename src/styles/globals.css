@@ -228,6 +228,33 @@ input, textarea, select {
   50% { transform: translateY(-8px); }
 }
 
+@keyframes heroIrisFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Rich multi-layer Iris motion for Space theme */
+@keyframes irisFloatRich {
+  0%   { transform: translateY(0px) rotate(-0.5deg); }
+  25%  { transform: translateY(-10px) rotate(0.8deg); }
+  50%  { transform: translateY(-14px) rotate(-0.3deg); }
+  75%  { transform: translateY(-6px) rotate(0.5deg); }
+  100% { transform: translateY(0px) rotate(-0.5deg); }
+}
+
+@keyframes irisBodySway {
+  0%   { transform: rotate(-1.5deg) skewX(0.4deg); }
+  30%  { transform: rotate(1.8deg) skewX(-0.5deg); }
+  60%  { transform: rotate(-1.2deg) skewX(0.3deg); }
+  100% { transform: rotate(-1.5deg) skewX(0.4deg); }
+}
+
+@keyframes irisBodyBreathe {
+  0%, 100% { transform: scaleX(1) scaleY(1); }
+  40%       { transform: scaleX(1.018) scaleY(0.985); }
+  70%       { transform: scaleX(0.988) scaleY(1.012); }
+}
+
 @keyframes irisSparkleFade {
   0% { opacity: 0; transform: scale(0.5) translateY(4px); }
   40% { opacity: 1; transform: scale(1.2) translateY(-8px); }

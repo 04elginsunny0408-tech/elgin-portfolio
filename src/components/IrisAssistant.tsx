@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import { MessageSquare, X, Send, Sparkles, RotateCcw } from 'lucide-react';
 
 const Iris3DCanvas = dynamic(() => import('./Iris3DCanvas'), { ssr: false });
@@ -244,28 +245,28 @@ export default function IrisAssistant({
             <span>{isOpen ? 'Close' : `Chat with ${irisDisplayName}`}</span>
           </button>
 
-          {/* GENUINE 3D IRIS CANVAS CONTAINER */}
+          {/* Authentic Iris Mascot (shown in all themes via the genuine iris_space_open asset) */}
           <div
+            onClick={handleMascotClick}
+            title={`Click to ${isOpen ? 'close' : 'open'} chat`}
             style={{
               position: 'relative',
-              width: '84px',
-              height: '84px',
-              borderRadius: '50%',
-              background: 'radial-gradient(circle, var(--bg-surface) 60%, transparent 100%)',
-              border: '2px solid var(--border-active)',
-              boxShadow: 'var(--border-glow), 0 8px 25px rgba(0, 0, 0, 0.4)',
-              overflow: 'visible',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+              width: '64px',
+              height: '76px',
+              cursor: 'pointer',
+              filter: 'drop-shadow(0 0 12px rgba(0, 240, 255, 0.5)) drop-shadow(0 4px 10px rgba(0,0,0,0.5))',
+              animation: 'irisFloat 3.8s ease-in-out infinite',
+              transition: 'transform 0.2s ease, filter 0.2s ease',
             }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.transform = 'scale(1.08) translateY(-4px)'; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = 'scale(1) translateY(0)'; }}
           >
-            <Iris3DCanvas
-              theme={theme}
-              isSpeaking={isLoading}
-              isBouncing={isBouncing}
-              onClick={handleMascotClick}
-              size={90}
+            <Image
+              src="/assets/mascot/iris_space_open.png"
+              alt="Iris"
+              fill
+              style={{ objectFit: 'contain' }}
+              priority
             />
           </div>
         </div>
@@ -310,17 +311,18 @@ export default function IrisAssistant({
               <div
                 style={{
                   width: '38px',
-                  height: '38px',
-                  borderRadius: '50%',
-                  background: 'var(--bg-surface)',
-                  border: '1.5px solid var(--accent-cyan)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  overflow: 'hidden',
+                  height: '46px',
+                  position: 'relative',
+                  flexShrink: 0,
                 }}
               >
-                <Iris3DCanvas theme={theme} size={42} isSpeaking={isLoading} />
+                <Image
+                  src="/assets/mascot/iris_space_open.png"
+                  alt="Iris"
+                  fill
+                  style={{ objectFit: 'contain' }}
+                  priority
+                />
               </div>
 
               <div>
@@ -400,32 +402,31 @@ export default function IrisAssistant({
               <div
                 style={{
                   position: 'relative',
-                  width: '210px',
-                  height: '210px',
-                  borderRadius: '50%',
-                  background: 'radial-gradient(circle, rgba(14, 25, 60, 0.7) 40%, transparent 100%)',
-                  boxShadow: '0 0 35px rgba(0, 240, 255, 0.25)',
+                  width: '200px',
+                  height: '240px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  cursor: 'grab',
+                  filter: 'drop-shadow(0 0 28px rgba(0, 240, 255, 0.35))',
+                  animation: 'irisFloat 3.8s ease-in-out infinite',
                 }}
-                title="Drag horizontally to inspect Iris from any angle"
+                title="Iris — the authentic design"
               >
-                <Iris3DCanvas
-                  theme={theme}
-                  size={210}
-                  enableTurnaround={true}
-                  isSpeaking={isLoading}
+                <Image
+                  src="/assets/mascot/iris_space_open.png"
+                  alt="Iris AI Companion"
+                  fill
+                  style={{ objectFit: 'contain' }}
+                  priority
                 />
               </div>
 
               <div style={{ marginTop: '16px', maxWidth: '320px' }}>
                 <h5 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--text-primary)' }}>
-                  Iris 360° Turnaround Model
+                  Meet Iris ✦
                 </h5>
                 <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '4px', lineHeight: 1.4 }}>
-                  Drag horizontally to rotate and inspect from any angle. Iris blinks, waves friendly on front view, and breathes with organic motion.
+                  Iris is your AI portfolio guide — sporting a black crown with cyan diamond, white helmet, Pixar-blue eyes, and white circuit-traced suit.
                 </p>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', justifyContent: 'center', marginTop: '12px' }}>
                   <span style={{ fontSize: '0.68rem', padding: '3px 8px', borderRadius: '4px', background: 'rgba(56, 189, 248, 0.1)', color: '#38bdf8', fontWeight: 600 }}>

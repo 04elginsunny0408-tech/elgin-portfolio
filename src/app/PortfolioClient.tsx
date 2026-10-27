@@ -213,7 +213,7 @@ export default function PortfolioClient({
         theme={theme}
         irisDisplayName={initialSettings?.iris_name || 'Iris'}
         ownerName={initialSettings?.owner_name || 'Elgin'}
-        hideFloatingTrigger={false}
+        hideFloatingTrigger={true}
       />
     </div>
   );

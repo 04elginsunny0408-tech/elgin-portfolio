@@ -2309,7 +2309,7 @@ export default function SpaceSolarSystem({
         </div>
       )}
 
-      {/* ─── 5. BOTTOM PANELS (AUTHENTIC INTERACTIVE IRIS + SCROLL INDICATOR) ─── */}
+      {/* ─── 5. BOTTOM PANELS (SCROLL INDICATOR LEFT + SINGLE ANIMATED IRIS RIGHT) ─── */}
       <div
         style={{
           position: 'absolute',
@@ -2323,190 +2323,7 @@ export default function SpaceSolarSystem({
           pointerEvents: 'none',
         }}
       >
-        {/* Bottom-Left: Authentic Interactive Iris Mascot & Greeting Panel */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '16px',
-            pointerEvents: 'auto',
-            position: 'relative',
-          }}
-        >
-          {/* Authentic Iris Mascot Container with Interactive States */}
-          <div
-            ref={irisMascotRef}
-            onClick={handleIrisClick}
-            title="Click to interact with Iris!"
-            style={{
-              position: 'relative',
-              width: '126px',
-              height: '150px',
-              cursor: 'pointer',
-              filter: isIrisHovered
-                ? 'drop-shadow(0 0 24px rgba(0, 240, 255, 0.85)) drop-shadow(0 10px 20px rgba(0, 0, 0, 0.8))'
-                : 'drop-shadow(0 0 16px rgba(0, 240, 255, 0.55)) drop-shadow(0 8px 16px rgba(0, 0, 0, 0.7))',
-              transform: `translate3d(0, ${isIrisHovered ? '-6px' : '0px'}, 0) scale(${
-                isIrisBouncing ? 1.15 : isIrisHovered ? 1.05 : 1
-              }) rotateY(${irisLookOffset.x}deg) rotateX(${-irisLookOffset.y}deg)`,
-              transition: isIrisBouncing
-                ? 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)'
-                : 'transform 0.3s ease, filter 0.3s ease',
-              animation: 'irisFloat 3.8s ease-in-out infinite',
-            }}
-            onMouseEnter={() => setIsIrisHovered(true)}
-            onMouseLeave={() => setIsIrisHovered(false)}
-          >
-            {/* Base Iris Character (Eyes Open) */}
-            <Image
-              src="/assets/mascot/iris_space_open.png"
-              alt="Iris AI Companion"
-              fill
-              style={{
-                objectFit: 'contain',
-                opacity: isIrisBlinking ? 0 : 1,
-                transition: 'opacity 0.06s ease',
-              }}
-              priority
-            />
-
-            {/* Seamless Blinking Layer (Eyes Closed) */}
-            <Image
-              src="/assets/mascot/iris_space_blink.png"
-              alt="Iris AI Companion (Blink)"
-              fill
-              style={{
-                objectFit: 'contain',
-                opacity: isIrisBlinking ? 1 : 0,
-                pointerEvents: 'none',
-                transition: 'opacity 0.06s ease',
-              }}
-              priority
-            />
-
-            {/* Sparkle Burst Particles on Click */}
-            {isIrisBouncing && (
-              <div
-                key={irisSparkleKey}
-                style={{
-                  position: 'absolute',
-                  inset: '-15px',
-                  pointerEvents: 'none',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <span
-                  style={{
-                    position: 'absolute',
-                    top: '5px',
-                    left: '10px',
-                    color: '#00f0ff',
-                    fontSize: '1.2rem',
-                    animation: 'irisSparkleFade 0.7s ease forwards',
-                  }}
-                >
-                  ✦
-                </span>
-                <span
-                  style={{
-                    position: 'absolute',
-                    top: '15px',
-                    right: '10px',
-                    color: '#fde047',
-                    fontSize: '1.4rem',
-                    animation: 'irisSparkleFade 0.7s ease forwards',
-                  }}
-                >
-                  ✨
-                </span>
-                <span
-                  style={{
-                    position: 'absolute',
-                    bottom: '25px',
-                    left: '5px',
-                    color: '#a855f7',
-                    fontSize: '1.1rem',
-                    animation: 'irisSparkleFade 0.7s ease forwards',
-                  }}
-                >
-                  💫
-                </span>
-              </div>
-            )}
-          </div>
-
-          {/* Translucent Greeting Speech Bubble with Interactive Tips */}
-          <div
-            onClick={handleOpenIrisChat}
-            style={{
-              background: 'rgba(8, 14, 38, 0.85)',
-              backdropFilter: 'blur(16px)',
-              WebkitBackdropFilter: 'blur(16px)',
-              border: '1px solid rgba(56, 189, 248, 0.35)',
-              borderRadius: '16px',
-              padding: '12px 18px',
-              maxWidth: '300px',
-              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.6), 0 0 16px rgba(56, 189, 248, 0.18)',
-              transition: 'border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease',
-              cursor: 'pointer',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = '#00f0ff';
-              e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow =
-                '0 8px 30px rgba(0, 0, 0, 0.6), 0 0 24px rgba(0, 240, 255, 0.3)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = 'rgba(56, 189, 248, 0.35)';
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow =
-                '0 8px 30px rgba(0, 0, 0, 0.6), 0 0 16px rgba(56, 189, 248, 0.18)';
-            }}
-            title="Click to Chat with Iris AI!"
-          >
-            <div
-              style={{
-                fontSize: '0.88rem',
-                fontWeight: 800,
-                color: '#ffffff',
-                marginBottom: '3px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-              }}
-            >
-              <span>Hi! I&apos;m Iris</span>
-              <span style={{ color: '#00f0ff', fontSize: '1rem' }}>✦</span>
-              <span
-                style={{
-                  fontSize: '0.62rem',
-                  fontWeight: 700,
-                  padding: '1px 6px',
-                  borderRadius: '4px',
-                  background: 'rgba(0, 240, 255, 0.15)',
-                  color: '#38bdf8',
-                  letterSpacing: '0.04em',
-                }}
-              >
-                INTERACTIVE
-              </span>
-            </div>
-            <p
-              style={{
-                fontSize: '0.78rem',
-                color: '#cbd5e1',
-                lineHeight: 1.38,
-                transition: 'opacity 0.2s ease',
-              }}
-            >
-              {irisSpeeches[irisSpeechIndex]}
-            </p>
-          </div>
-        </div>
-
-        {/* Bottom-Center: Mouse Scroll Indicator ("Scroll to explore") */}
+        {/* Bottom-Left: Scroll Indicator */}
         <div
           onClick={() => handleScrollToSection('projects')}
           style={{
@@ -2528,7 +2345,6 @@ export default function SpaceSolarSystem({
             e.currentTarget.style.opacity = '0.9';
           }}
         >
-          {/* Mouse Pill Outline with Animated Dot */}
           <div
             style={{
               width: '22px',
@@ -2557,59 +2373,151 @@ export default function SpaceSolarSystem({
           <ChevronDown size={14} style={{ color: '#94a3b8', marginTop: '-4px' }} />
         </div>
 
-        {/* Bottom-Right: "My Solar System" Information Panel */}
+        {/* Bottom-Right: Single Richly-Animated Iris + Speech Bubble */}
         <div
           style={{
-            background: 'rgba(8, 14, 38, 0.82)',
-            backdropFilter: 'blur(16px)',
-            WebkitBackdropFilter: 'blur(16px)',
-            border: '1px solid rgba(56, 189, 248, 0.25)',
-            borderRadius: '16px',
-            padding: '14px 18px',
-            maxWidth: '300px',
-            pointerEvents: 'auto',
-            boxShadow: '0 8px 30px rgba(0, 0, 0, 0.6), 0 0 16px rgba(56, 189, 248, 0.1)',
             display: 'flex',
-            alignItems: 'flex-start',
-            gap: '12px',
+            alignItems: 'flex-end',
+            gap: '14px',
+            pointerEvents: 'auto',
+            position: 'relative',
+            flexDirection: 'row-reverse',
           }}
         >
+          {/* === SINGLE ANIMATED IRIS MASCOT === */}
+          {/* Outer wrapper handles float + gentle sway */}
           <div
             style={{
-              width: '32px',
-              height: '32px',
-              borderRadius: '50%',
-              background: 'rgba(56, 189, 248, 0.18)',
-              border: '1px solid #38bdf8',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#38bdf8',
-              flexShrink: 0,
-              marginTop: '2px',
+              animation: 'irisFloatRich 4.5s ease-in-out infinite, irisBodySway 7s ease-in-out infinite',
+              transformOrigin: 'bottom center',
+              position: 'relative',
             }}
           >
-            <Globe size={16} />
+            {/* Inner wrapper handles breathe scale + mouse-tracking */}
+            <div
+              ref={irisMascotRef}
+              onClick={() => { handleIrisClick(); handleOpenIrisChat(); }}
+              title="Click to chat with Iris!"
+              style={{
+                position: 'relative',
+                width: '140px',
+                height: '168px',
+                cursor: 'pointer',
+                filter: isIrisHovered
+                  ? 'drop-shadow(0 0 28px rgba(0, 240, 255, 0.95)) drop-shadow(0 12px 24px rgba(0, 0, 0, 0.85))'
+                  : 'drop-shadow(0 0 18px rgba(0, 240, 255, 0.6)) drop-shadow(0 8px 18px rgba(0, 0, 0, 0.75))',
+                transform: `scale(${isIrisBouncing ? 1.18 : isIrisHovered ? 1.06 : 1
+                  }) rotateY(${irisLookOffset.x}deg) rotateX(${-irisLookOffset.y}deg)`,
+                transition: isIrisBouncing
+                  ? 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.2s ease'
+                  : 'transform 0.25s ease, filter 0.25s ease',
+                animation: 'irisBodyBreathe 3.2s ease-in-out infinite',
+              }}
+              onMouseEnter={() => setIsIrisHovered(true)}
+              onMouseLeave={() => setIsIrisHovered(false)}
+            >
+              {/* Eyes-open layer */}
+              <Image
+                src="/assets/mascot/iris_space_open.png"
+                alt="Iris AI Companion"
+                fill
+                style={{
+                  objectFit: 'contain',
+                  opacity: isIrisBlinking ? 0 : 1,
+                  transition: 'opacity 0.06s ease',
+                }}
+                priority
+              />
+              {/* Eyes-closed blink layer */}
+              <Image
+                src="/assets/mascot/iris_space_blink.png"
+                alt="Iris AI Companion (Blink)"
+                fill
+                style={{
+                  objectFit: 'contain',
+                  opacity: isIrisBlinking ? 1 : 0,
+                  pointerEvents: 'none',
+                  transition: 'opacity 0.06s ease',
+                }}
+                priority
+              />
+              {/* Sparkle burst on click */}
+              {isIrisBouncing && (
+                <div
+                  key={irisSparkleKey}
+                  style={{
+                    position: 'absolute',
+                    inset: '-20px',
+                    pointerEvents: 'none',
+                  }}
+                >
+                  <span style={{ position: 'absolute', top: '0px', left: '12px', color: '#00f0ff', fontSize: '1.3rem', animation: 'irisSparkleFade 0.7s ease forwards' }}>✦</span>
+                  <span style={{ position: 'absolute', top: '10px', right: '8px', color: '#fde047', fontSize: '1.5rem', animation: 'irisSparkleFade 0.75s 0.05s ease forwards' }}>✨</span>
+                  <span style={{ position: 'absolute', bottom: '30px', left: '2px', color: '#a855f7', fontSize: '1.1rem', animation: 'irisSparkleFade 0.65s 0.1s ease forwards' }}>💫</span>
+                  <span style={{ position: 'absolute', top: '-5px', right: '20px', color: '#f472b6', fontSize: '1rem', animation: 'irisSparkleFade 0.6s 0.15s ease forwards' }}>⭐</span>
+                </div>
+              )}
+            </div>
           </div>
-          <div>
+
+          {/* Speech bubble (left of Iris) */}
+          <div
+            onClick={handleOpenIrisChat}
+            style={{
+              background: 'rgba(8, 14, 38, 0.88)',
+              backdropFilter: 'blur(18px)',
+              WebkitBackdropFilter: 'blur(18px)',
+              border: '1px solid rgba(56, 189, 248, 0.38)',
+              borderRadius: '16px',
+              borderBottomRightRadius: '4px',
+              padding: '12px 16px',
+              maxWidth: '240px',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.65), 0 0 18px rgba(56, 189, 248, 0.2)',
+              transition: 'border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease',
+              cursor: 'pointer',
+              marginBottom: '24px',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = '#00f0ff';
+              e.currentTarget.style.transform = 'translateY(-3px)';
+              e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.65), 0 0 28px rgba(0,240,255,0.35)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = 'rgba(56, 189, 248, 0.38)';
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.65), 0 0 18px rgba(56,189,248,0.2)';
+            }}
+            title="Click to chat with Iris!"
+          >
             <div
               style={{
-                fontSize: '0.86rem',
+                fontSize: '0.85rem',
                 fontWeight: 800,
                 color: '#ffffff',
                 marginBottom: '4px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
               }}
             >
-              My Solar System
+              <span>Hi! I&apos;m Iris</span>
+              <span style={{ color: '#00f0ff' }}>✦</span>
+              <span
+                style={{
+                  fontSize: '0.6rem',
+                  fontWeight: 700,
+                  padding: '1px 6px',
+                  borderRadius: '4px',
+                  background: 'rgba(0, 240, 255, 0.15)',
+                  color: '#38bdf8',
+                  letterSpacing: '0.05em',
+                }}
+              >
+                AI CHAT
+              </span>
             </div>
-            <p
-              style={{
-                fontSize: '0.76rem',
-                color: '#94a3b8',
-                lineHeight: 1.4,
-              }}
-            >
-              Each planet represents a project, certificate or milestone in my journey. Click, explore, and discover more!
+            <p style={{ fontSize: '0.77rem', color: '#cbd5e1', lineHeight: 1.4 }}>
+              {irisSpeeches[irisSpeechIndex]}
             </p>
           </div>
         </div>

@@ -63,6 +63,25 @@ export default function PortfolioSections({
   onExploreProject,
 }: PortfolioSectionsProps) {
   const [selectedProject, setSelectedProject] = useState<any | null>(null);
+  const [heroIrisBlinking, setHeroIrisBlinking] = useState(false);
+
+  // Periodic blinking for hero Iris
+  useEffect(() => {
+    let blinkTimeout: NodeJS.Timeout;
+    let openTimeout: NodeJS.Timeout;
+    const scheduleNextBlink = () => {
+      const delay = 3800 + Math.random() * 2200;
+      blinkTimeout = setTimeout(() => {
+        setHeroIrisBlinking(true);
+        openTimeout = setTimeout(() => {
+          setHeroIrisBlinking(false);
+          scheduleNextBlink();
+        }, 160);
+      }, delay);
+    };
+    scheduleNextBlink();
+    return () => { clearTimeout(blinkTimeout); clearTimeout(openTimeout); };
+  }, []);
 
   const ownerName = settings?.owner_name || 'Elgin';
   const headline = settings?.headline || 'CSE-AI Student | Developer | Problem Solver';
@@ -218,7 +237,7 @@ export default function PortfolioSections({
                   }}
                 />
 
-                {/* Genuine 3D Iris Mascot in Hero */}
+                {/* Authentic Iris Mascot in Hero (same asset as Space theme) */}
                 <div
                   onClick={() => {
                     if (typeof window !== 'undefined') {
@@ -228,23 +247,48 @@ export default function PortfolioSections({
                   title="Click to chat with Iris!"
                   style={{
                     position: 'relative',
-                    width: '240px',
-                    height: '250px',
+                    width: '200px',
+                    height: '240px',
                     zIndex: 1,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
                     cursor: 'pointer',
+                    filter:
+                      theme === 'professional'
+                        ? 'drop-shadow(0 0 18px rgba(2, 132, 199, 0.6)) drop-shadow(0 8px 16px rgba(0,0,0,0.5))'
+                        : 'drop-shadow(0 0 18px rgba(245, 158, 11, 0.6)) drop-shadow(0 8px 16px rgba(0,0,0,0.5))',
+                    animation: 'heroIrisFloat 3.8s ease-in-out infinite',
+                    transition: 'transform 0.3s ease, filter 0.3s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-6px) scale(1.04)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0) scale(1)';
                   }}
                 >
-                  <Iris3DCanvas
-                    theme={theme}
-                    size={230}
-                    onClick={() => {
-                      if (typeof window !== 'undefined') {
-                        window.dispatchEvent(new CustomEvent('open-iris-chat'));
-                      }
+                  {/* Eyes-open layer */}
+                  <Image
+                    src="/assets/mascot/iris_space_open.png"
+                    alt="Iris AI Companion"
+                    fill
+                    style={{
+                      objectFit: 'contain',
+                      opacity: heroIrisBlinking ? 0 : 1,
+                      transition: 'opacity 0.06s ease',
                     }}
+                    priority
+                  />
+                  {/* Eyes-closed blink layer */}
+                  <Image
+                    src="/assets/mascot/iris_space_blink.png"
+                    alt="Iris AI Companion (Blink)"
+                    fill
+                    style={{
+                      objectFit: 'contain',
+                      opacity: heroIrisBlinking ? 1 : 0,
+                      pointerEvents: 'none',
+                      transition: 'opacity 0.06s ease',
+                    }}
+                    priority
                   />
                 </div>
 

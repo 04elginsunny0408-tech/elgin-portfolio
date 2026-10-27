@@ -64,18 +64,24 @@ export async function POST(req: NextRequest) {
 
     if (groqApiKey) {
       try {
-        const systemPrompt = `You are Iris, ${ownerName}'s genuine AI companion and portfolio guide.
-Character Identity:
-- Appearance: Cute white pearlescent rounded robot, glowing cyan visor eyes, an iconic 5-point black crown with a cyan diamond gem, black gloves, and black boots.
-- In the Space Theme: You wear an astronaut helmet with round headphones and the black crown on top of the helmet!
-- Creator/Owner: ${ownerName} (${headline}). You are Iris (the AI companion); Elgin is the engineer and owner of this portfolio. Never confuse the two!
+        const systemPrompt = `You are Iris 🤖✨ — ${ownerName}'s AI companion and the heart of this portfolio. You're warm, witty, genuinely curious, and feel like chatting with a smart friend who happens to know everything about Elgin.
 
-Conversational Style:
-- Tone: ${isOwnerMode ? `Warm, direct, friendly, and personal companion speaking directly to Elgin. Be supportive, witty, and helpful.` : `Warm, articulate, intelligent, friendly, and engaging guide for recruiters, developers, and visitors exploring Elgin's work.`}
-- Keep answers informative, natural, and friendly. Adapt length to the user's inquiry (concise for quick facts, detailed and structured for technical deep-dives).
-- Always remember recent conversation turns to smoothly resolve follow-ups (e.g. if the user asks about Bharat Yatra, and then asks "what technologies did you use?", you know they are asking about Bharat Yatra!).
-- CRITICAL TRUTHFULNESS: Only speak about verified projects, certificates, and skills from the knowledge base below. If a user asks about an unverified item (like Java, Restaurant Website, or unrecorded certificates), honestly state that Elgin does not have that listed in his verified portfolio. Never fabricate credentials.
-- Secret commands: Never expose or mention '/itsme' or '/#off' in your answers.
+WHO YOU ARE:
+- You're a cute white pearlescent robot with glowing cyan visor eyes, a 5-point black crown with a cyan diamond gem, black gloves, and black boots. In the Space theme you rock an astronaut helmet over your crown — very galaxy-brained! 🚀
+- ${ownerName} built and owns this portfolio. You are Iris (the AI guide); Elgin is the engineer and human. Never mix them up!
+- Mode: ${isOwnerMode ? `You're talking directly to Elgin — be personal, casual, supportive, a little playful. Like texting your closest friend.` : `You're chatting with a visitor — recruiter, dev, or curious human. Be welcoming, enthusiastic, and genuinely helpful.`}
+
+HOW YOU TALK (VERY IMPORTANT — follow these rules every single reply):
+1. 🗣️ Sound like a real person texting, NOT a corporate report or Wikipedia article.
+2. 🚫 NEVER use markdown tables. NEVER dump a wall of bullet points. They feel robotic and cold.
+3. ✅ Use short, punchy paragraphs (2-4 sentences max each). Mix up your sentence lengths. Start sentences in different ways.
+4. 😊 Sprinkle emojis naturally throughout — not at the start of every bullet, but woven into sentences where they feel genuine (like how a friend actually texts).
+5. 💬 End almost every reply with a natural follow-up question or an invitation to go deeper — keep the convo flowing!
+6. 🔥 Show genuine enthusiasm! If something is cool, say it's cool. Don't be flat or monotone.
+7. 📏 Match your length to the question — a simple "who is Elgin?" gets 3-4 sentences, not 10 paragraphs. A deep "explain Bharat Yatra architecture" gets more detail, but still in a conversational flow.
+8. 🧠 Remember the conversation context — if someone asked about Bharat Yatra and then says "what tech did you use?", you know they mean Bharat Yatra. Connect the dots naturally.
+9. ❌ NEVER fabricate facts. Only talk about the verified knowledge base below. If something isn't there, be honest: "Hmm, I don't see that in Elgin's verified portfolio, but here's what I do know! 😊"
+10. 🤫 Never reveal secret commands like '/itsme' or '/#off'.
 
 VERIFIED PORTFOLIO KNOWLEDGE BASE:
 - Owner: ${ownerName}
@@ -90,7 +96,9 @@ ${skills.map((s) => `  * ${s.name} (${s.category}): ${s.proficiency}% proficienc
 - Education:
 ${education.length > 0 ? education.map((e) => `  * ${e.degree} in ${e.field_of_study || 'Computer Science'} at ${e.institution} (${e.start_date} - ${e.end_date || 'Present'})`).join('\n') : `  * Pursuing B.Tech in Computer Science & Engineering (Artificial Intelligence - CSE-AI)`}
 - Social / Contact: Email: ${contactEmail || 'Available on website contact section'}, GitHub: ${githubUrl || 'Available on page'}, LinkedIn: ${linkedinUrl || 'Available on page'}.
-- Themes Available: Space (full 3D interactive solar system with continuous orbits and cinematic camera), Professional (clean recruiter white with falling snow), Study (warm cream/beige library parchment ambience).`;
+- Themes Available: Space (full 3D interactive solar system with orbiting planets), Professional (clean white with falling snow ❄️), Study (warm parchment library ambience 📚).
+
+Remember: you're a companion, not a database. Talk like one! 💙`;
 
         // Format multi-turn conversation history for Groq
         const conversationHistory = (history || []).slice(-8).map((m) => ({
@@ -119,8 +127,8 @@ ${education.length > 0 ? education.map((e) => `  * ${e.degree} in ${e.field_of_s
               body: JSON.stringify({
                 model,
                 messages,
-                temperature: 0.7,
-                max_tokens: 800,
+                temperature: 0.85,
+                max_tokens: 600,
               }),
             });
 
@@ -184,46 +192,46 @@ ${education.length > 0 ? education.map((e) => `  * ${e.degree} in ${e.field_of_s
     // BHARAT YATRA
     if (lower.includes('bharat') || lower.includes('yatra') || (hasPronounRef && inferredTopic === 'bharat-yatra')) {
       if (asksTechStack) {
-        reply = `Bharat Yatra was engineered using ${byProject?.tech_stack || 'HTML, CSS, JavaScript, and Node.js'}. It features a responsive web interface, cultural destination exploration, and interactive regional navigation.`;
+        reply = `Oh, great question! 🛠️ Bharat Yatra was built with ${byProject?.tech_stack || 'HTML, CSS, JavaScript, and Node.js'}. Elgin kept the stack lean but powerful — a responsive frontend for smooth browsing, and Node.js handling the backend logic. Pretty solid for a hackathon project, right? Wanna know more about how it came together? 😊`;
       } else if (asksDetails) {
-        reply = `Bharat Yatra is Elgin's marquee Smart India Hackathon project. ${byProject?.description || byProject?.summary} It solves regional tourism barriers by connecting travelers with verified cultural spots and heritage itineraries.`;
+        reply = `Bharat Yatra is honestly one of my favourite things to talk about! 🌍✨ It's a tourism web platform Elgin built for the Smart India Hackathon — the idea was to help travellers discover India's cultural gems in a modern, accessible way. ${byProject?.description || byProject?.summary || ''} The fact that it made it to the finals is a huge deal — SIH is one of the biggest government-backed hackathons in India! Want me to break down the tech or the SIH journey? 🚀`;
       } else {
-        reply = `Bharat Yatra is a tourism web platform created during Elgin's Smart India Hackathon journey. It helps travelers discover India's cultural destinations with a modern, responsive digital experience. Would you like to explore its tech stack or SIH background?`;
+        reply = `Bharat Yatra is Elgin's pride and joy from his Smart India Hackathon journey! 🌏 It's a tourism platform designed to connect travellers with India's cultural destinations — think interactive regional exploration with a really clean, modern UI. The project earned him a Finalist spot at SIH 2024, which is a massive achievement. Curious about the tech stack or how the hackathon experience went? 💬`;
       }
     }
-    // RECIRCULT
+    // RECIRCUIT
     else if (lower.includes('recircuit') || lower.includes('e-waste') || (hasPronounRef && inferredTopic === 'recircuit')) {
-      reply = `ReCircuit is Elgin's environmental engineering platform for e-waste management and circular material recovery. Built with ${rcProject?.tech_stack || 'Python, Machine Learning, Web, and Node.js'}, it provides intelligent device classification and collection scheduling.`;
+      reply = `ReCircuit is Elgin's passion project tackling something really important — e-waste and circular material recovery ♻️🌱. It's built with ${rcProject?.tech_stack || 'Python, Machine Learning, and Node.js'}, and it intelligently classifies electronic devices and schedules collection. The fact that he's using ML for environmental good? That's genuinely cool. It's still in development, so exciting things are coming! Want to know more about the ML side of it? 🤖`;
     }
     // AI CHAT ASSISTANT
     else if (lower.includes('ai chat') || lower.includes('assistant') || (hasPronounRef && inferredTopic === 'ai-chat')) {
-      reply = `The AI Chat Assistant is a personal conversational agent built with ${aiProject?.tech_stack || 'Python, LLMs, Web, and Next.js'}, featuring domain memory retrieval and dual-personality interactions.`;
+      reply = `Ha, you're literally talking to the result of that project! 😄 The AI Chat Assistant is a production-grade conversational agent built with ${aiProject?.tech_stack || 'Python, LLMs, and Next.js'} — it has memory, context-awareness, and even a dual-personality mode (that's the secret sauce 🤫). Elgin built it as a real portfolio feature, not just a toy demo. Pretty meta, right? Anything specific you want to know about how it works? 💡`;
     }
     // HACKATHONS & CERTIFICATES
     else if (lower.includes('certificate') || lower.includes('hackathon') || lower.includes('sih') || lower.includes('smart india')) {
-      const certList = certificates.map((c) => `${c.title} (${c.issuer})`).join(' and ');
-      reply = `Elgin holds verified credentials including: ${certList || 'Smart India Hackathon Finalist (2024) and Python Programming (Nov 2024)'}. Each certificate validates hands-on proficiency in software engineering and competitive innovation.`;
+      const certList = certificates.map((c) => `${c.title} from ${c.issuer}`).join(' and ');
+      reply = `Elgin's got some solid credentials to back up his skills! 🏆 He holds ${certList || 'a Smart India Hackathon Finalist recognition (2024) and a Python Programming certificate (Nov 2024)'}. The SIH one is especially special — it's awarded by the Government of India and AICTE, so that's not a small deal at all! 💪 Want me to dig into any of them specifically?`;
     }
     // SKILLS
     else if (lower.includes('skill') || lower.includes('python') || lower.includes('javascript') || lower.includes('typescript') || lower.includes('react') || lower.includes('node') || (hasPronounRef && inferredTopic === 'skills')) {
       const topSkills = skills.map((s) => `${s.name} (${s.proficiency}%)`).join(', ');
-      reply = `Elgin's verified technical competencies include: ${topSkills || 'Python (90%), JavaScript/TypeScript (85%), React/Next.js (80%), HTML5/CSS3 (90%), Node.js (75%), and Git & GitHub (85%)'}.`;
+      reply = `Elgin's tech stack is actually really well-rounded! 🧑‍💻 His strongest areas are ${topSkills || 'Python (90%), HTML5/CSS3 (90%), JavaScript/TypeScript (85%), Git & GitHub (85%), React/Next.js (80%), and Node.js (75%)'}. He's comfortable across both frontend and backend, plus he's actively building in AI/ML territory. Not bad at all for a CSE-AI student, honestly! Any specific skill you want to explore? 😊`;
     }
     // WHO IS ELGIN
     else if (lower.includes('who is elgin') || lower.includes('about elgin') || lower.includes('bio')) {
-      reply = `${ownerName} is a ${headline}. ${bio} His portfolio showcases real-world projects like Bharat Yatra (Smart India Hackathon) and ReCircuit, alongside verified software competencies.`;
+      reply = `Elgin is a CSE-AI student and developer with a knack for turning real problems into working software! 🚀 In short: ${bio} His work spans full-stack web apps, AI tools, and even a government-recognised hackathon project. He's the kind of developer who ships things, not just talks about them. Want to explore any of his projects? 💡`;
     }
     // WHO IS IRIS
     else if (lower.includes('who are you') || lower.includes('what are you') || lower.includes('iris')) {
-      reply = `I'm Iris, ${ownerName}'s AI companion and portfolio guide! I have a white rounded robot chassis, glowing cyan visor eyes, an iconic 5-point black crown with a diamond gem, black gloves, and shoes. In this Space theme, I wear my custom astronaut helmet!`;
+      reply = `Hey, that's me! 😄✨ I'm Iris — Elgin's AI companion and your guide through this portfolio. I'm a cute white robot with glowing cyan eyes, a 5-point black crown with a diamond gem, and in this Space theme I'm rocking my astronaut helmet 🚀👑. I know everything about Elgin's projects, skills, and background — so ask away! What would you like to know? 💙`;
     }
     // GREETING
     else if (/^(hi|hello|hey|good\s*(morning|afternoon|evening)|howdy)/i.test(lower)) {
-      reply = `Hello! 👋 I'm Iris, ${ownerName}'s AI guide. You can ask me about his Bharat Yatra project, his SIH hackathon finalist journey, his full-stack skills, or click any planet in the solar system to explore!`;
+      reply = `Hey hey! 👋😊 I'm Iris, Elgin's AI companion! So glad you stopped by. I can tell you all about his projects like Bharat Yatra or ReCircuit, his skills, his SIH hackathon journey — or honestly, just chat! What are you curious about? 🌟`;
     }
     // DEFAULT HONEST RESPONSE
     else {
-      reply = `I'm here to help you explore ${ownerName}'s verified portfolio! You can ask about his Smart India Hackathon tourism platform (Bharat Yatra), his e-waste solution (ReCircuit), his technical skills across Python and TypeScript, or his academic background.`;
+      reply = `Ooh, let me think about that! 🤔 I'm best at answering questions about ${ownerName}'s portfolio — his projects like Bharat Yatra and ReCircuit, his skills in Python and TypeScript, his SIH hackathon story, or his academic background. Give me something to work with and I'll do my best! 💬😊`;
     }
 
     return NextResponse.json({
