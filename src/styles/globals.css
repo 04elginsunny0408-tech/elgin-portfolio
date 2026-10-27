@@ -1,0 +1,346 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* Default: Space Theme Tokens */
+  --bg-primary: #040714;
+  --bg-secondary: #0b112c;
+  --bg-surface: rgba(13, 20, 52, 0.7);
+  --bg-surface-hover: rgba(22, 33, 82, 0.8);
+  --bg-card: rgba(11, 19, 48, 0.65);
+  --border-subtle: rgba(56, 189, 248, 0.15);
+  --border-active: rgba(0, 240, 255, 0.5);
+  --border-glow: 0 0 20px rgba(0, 240, 255, 0.25);
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --accent-cyan: #00f0ff;
+  --accent-purple: #a855f7;
+  --accent-gold: #fbbf24;
+  --accent-glow: rgba(0, 240, 255, 0.35);
+  --nav-bg: rgba(6, 10, 28, 0.85);
+  --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  --shadow-card: 0 12px 35px -8px rgba(0, 0, 0, 0.6);
+  --glass-blur: blur(16px);
+  --transition-smooth: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Professional Theme Tokens (Clean Recruiter White Canvas with Soft Winter Frosted Depth) */
+[data-theme="professional"],
+html[data-theme="professional"],
+body[data-theme="professional"] {
+  --bg-primary: #f5f8fc;
+  --bg-secondary: #e9f0f8;
+  --bg-surface: rgba(255, 255, 255, 0.92);
+  --bg-surface-hover: #eef4fb;
+  --bg-card: rgba(255, 255, 255, 0.96);
+  --border-subtle: rgba(195, 210, 230, 0.75);
+  --border-active: rgba(2, 132, 199, 0.55);
+  --border-glow: 0 0 16px rgba(2, 132, 199, 0.12);
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-cyan: #0284c7;
+  --accent-purple: #4f46e5;
+  --accent-gold: #b45309;
+  --accent-glow: rgba(2, 132, 199, 0.22);
+  --nav-bg: rgba(255, 255, 255, 0.96);
+  --shadow-card: 0 10px 30px -8px rgba(15, 23, 42, 0.09);
+}
+
+/* Study Theme Tokens (Rich Warm Cream / Beige parchment palette with peaceful library atmosphere) */
+[data-theme="study"],
+html[data-theme="study"],
+body[data-theme="study"] {
+  --bg-primary: #ede3ce;
+  --bg-secondary: #dfd1b5;
+  --bg-surface: rgba(246, 237, 220, 0.9);
+  --bg-surface-hover: rgba(255, 249, 238, 0.97);
+  --bg-card: rgba(240, 230, 210, 0.94);
+  --border-subtle: rgba(175, 135, 85, 0.42);
+  --border-active: rgba(180, 83, 9, 0.75);
+  --border-glow: 0 0 22px rgba(180, 83, 9, 0.25);
+  --text-primary: #1e1307;
+  --text-secondary: #4a351d;
+  --text-muted: #785a3a;
+  --accent-cyan: #0f766e;
+  --accent-purple: #6b21a8;
+  --accent-gold: #b45309;
+  --accent-glow: rgba(180, 83, 9, 0.28);
+  --nav-bg: rgba(237, 227, 206, 0.96);
+  --shadow-card: 0 12px 35px -8px rgba(70, 45, 20, 0.15);
+}
+
+/* Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  min-height: 100%;
+  font-family: var(--font-main);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  color: inherit;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  color: inherit;
+}
+
+/* Utility Containers */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.glass-panel {
+  background: var(--bg-surface);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  transition: var(--transition-smooth);
+}
+
+.glass-panel:hover {
+  border-color: var(--border-active);
+  box-shadow: var(--border-glow), var(--shadow-card);
+}
+
+/* Buttons */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  color: #ffffff;
+  box-shadow: 0 4px 20px var(--accent-glow);
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="study"] .btn-primary {
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px var(--accent-glow);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  background: var(--bg-surface);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  transition: var(--transition-smooth);
+}
+
+.btn-secondary:hover {
+  border-color: var(--border-active);
+  background: var(--bg-surface-hover);
+  transform: translateY(-2px);
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+}
+
+.badge-cyan {
+  border-color: var(--border-active);
+  color: var(--accent-cyan);
+}
+
+.badge-gold {
+  border-color: rgba(245, 158, 11, 0.4);
+  color: var(--accent-gold);
+}
+
+/* Custom Cursors - Desktop Only */
+@media (pointer: fine) {
+  body.cursor-active {
+    cursor: none;
+  }
+  body.cursor-active a,
+  body.cursor-active button,
+  body.cursor-active input,
+  body.cursor-active select,
+  body.cursor-active textarea {
+    cursor: none;
+  }
+}
+
+/* ============ KEYFRAME ANIMATIONS ============ */
+
+@keyframes irisFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes irisSparkleFade {
+  0% { opacity: 0; transform: scale(0.5) translateY(4px); }
+  40% { opacity: 1; transform: scale(1.2) translateY(-8px); }
+  100% { opacity: 0; transform: scale(1.4) translateY(-18px); }
+}
+
+@keyframes sunPulse {
+  0% {
+    box-shadow: 0 0 50px rgba(251, 191, 36, 0.65), 0 0 100px rgba(234, 88, 12, 0.35);
+    transform: scale(1);
+  }
+  100% {
+    box-shadow: 0 0 85px rgba(251, 191, 36, 0.9), 0 0 140px rgba(234, 88, 12, 0.55);
+    transform: scale(1.04);
+  }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heroEntrance {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============ HERO ANIMATIONS ============ */
+.hero-animate {
+  animation: heroEntrance 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-animate-delay-1 {
+  animation: heroEntrance 0.7s 0.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-animate-delay-2 {
+  animation: heroEntrance 0.7s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-animate-delay-3 {
+  animation: heroEntrance 0.7s 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ============ SCROLLBAR ============ */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-active);
+  border-radius: 9999px;
+}
+
+/* ============ SELECTION ============ */
+::selection {
+  background: rgba(0, 240, 255, 0.25);
+  color: var(--text-primary);
+}
+[data-theme="professional"] ::selection {
+  background: rgba(2, 132, 199, 0.25);
+}
+[data-theme="study"] ::selection {
+  background: rgba(194, 120, 3, 0.25);
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============ CUSTOM CURSOR HARMONIZATION ============ */
+/* When custom cursor is active, completely suppress default OS arrow across all elements */
+html.cursor-active,
+html.cursor-active *,
+body.cursor-active,
+body.cursor-active * {
+  cursor: none !important;
+}
+
+/* Retain native text cursor on form inputs, textareas, and contenteditable regions */
+html.cursor-active input,
+html.cursor-active textarea,
+html.cursor-active [contenteditable="true"],
+body.cursor-active input,
+body.cursor-active textarea,
+body.cursor-active [contenteditable="true"] {
+  cursor: text !important;
+}
+
+
